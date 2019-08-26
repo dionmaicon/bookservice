@@ -21,5 +21,8 @@ chmod +x build.sh
 O frontend foi desenvlvido usando Vue.js e o backend contém um server Node.js. Após execuar os comanddos acima, teremos o frontend na PORTA 8080 e a API na PORTA 8081. O MongoDB funciona em outra imagem docker. As vezes no início é necessário abrir o projeto no backend e alterar algum arquivo para que o Nodemon possa reiniciar o backend (Nodemon realiza o restart da aplicação toda vez que um arquivo é alterado).
 Para navegar use http://localhost:8080
 
+## Primeira execução
+Na primeira execução ao buscar todos os registros, caso não existam dados salvos no banco, são criados mocks de exemplo. Então é necessário atualizar a página que lista os livros.
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
