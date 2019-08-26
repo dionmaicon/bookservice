@@ -1,4 +1,5 @@
 const Book = require("../models/book.model.js");
+const Mock = require('../mock/book.mock.js');
 
 class BookService {
   constructor() {
@@ -6,14 +7,25 @@ class BookService {
 
   async getAll() {
     return await Book.find()
-      .then( books => books).catch(err => {
+      .then( books => {
+        if (books.length > 0 ) {
+          return books;
+        } else {
+          let bookMock = new Mock();
+          bookMock.createBooks();
+          return {
+            success: false,
+            message : "Mocks criados! Reevie a solicitação."
+          }
+        }
+      }).catch(err => {
       return {
         success: false,
-        message : "Algum erro ocorreu ao enquanto tentava buscar os livros."
+        message : err.message
       }
     });
   }
-  
+
   async getOne(id){
     let error = null;
     let book = null;
