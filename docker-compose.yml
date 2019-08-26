@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    volumes:
+      - ./db:/data/db
+    links:
+      - backend
+      - frontend
+  backend:
+    build: ./backend
+    expose:
+      - ${API_PORT}
+    environment:
+      API_PORT: ${API_PORT}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    volumes:
+      - ./backend:/app/backend
+    command: npm run start
+  frontend:
+    build: ./frontend
+    expose:
+      - ${APP_PORT}
+    environment:
+      API_PORT: ${API_PORT}
+      APP_PORT: ${APP_PORT}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - ./frontend:/app/frontend
+    links:
+      - backend
+    command: npm run serve
